@@ -7,6 +7,7 @@ import com.store.data.generator.generators.NameGenerator;
 import com.store.data.generator.models.Employee;
 import com.store.data.generator.models.Item;
 import com.store.data.generator.utils.NameRetriever;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -33,6 +34,9 @@ public class Demo
 {
     public static void main(String args[]) throws Exception
     {
+        DateTime dateTime = DateTime.now();
+//        testEmployeeGenerator();
+//        testItemsGenerator();
     }
 
     private static void testEmployeeGenerator() throws IOException
@@ -58,9 +62,11 @@ public class Demo
 
         for (final Item item : items)
         {
-            System.out.println(items);
+            System.out.println(item);
         }
 
         System.out.println(items.size());
+
+
     }
 }

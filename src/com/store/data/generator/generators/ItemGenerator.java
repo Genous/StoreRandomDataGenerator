@@ -17,6 +17,7 @@ import java.util.LinkedList;
  */
 public class ItemGenerator
 {
+
     public LinkedList<Item> listAllCombinations()
     {
         long currentItemId = 1;
@@ -28,13 +29,31 @@ public class ItemGenerator
             {
                 for (ItemSize itemSize : ItemSize.values())
                 {
-                    final Item currentItem = new Item(
+                    final Item currentItem1 = new Item(
                             currentItemId,
                             itemType,
                             itemSize,
                             storageCostCalculator.calculateCost(itemType, itemSize),
                             department);
-                    itemsList.add(currentItem);
+                    itemsList.add(currentItem1);
+                    currentItemId++;
+
+                    final Item currentItem2 = new Item(
+                            currentItemId,
+                            itemType,
+                            itemSize,
+                            storageCostCalculator.calculateCost(itemType, itemSize),
+                            department);
+                    itemsList.add(currentItem2);
+                    currentItemId++;
+
+                    final Item currentItem3 = new Item(
+                            currentItemId,
+                            itemType,
+                            itemSize,
+                            storageCostCalculator.calculateCost(itemType, itemSize),
+                            department);
+                    itemsList.add(currentItem3);
                     currentItemId++;
                 }
             }
