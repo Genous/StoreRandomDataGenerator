@@ -30,13 +30,13 @@ public class Item
     @Override
     public String toString()
     {
-        return "Item{" +
-                "id=" + id +
-                ", itemType=" + itemType +
-                ", itemSize=" + itemSize +
-                ", costOfStoragePerUnit=" + costOfStoragePerUnit +
-                ", department=" + department +
-                '}';
+        return "insert into ITEM values(" +
+                id + ", '" +
+                itemType + "', '" +
+                itemSize + "', " +
+                costOfStoragePerUnit + ", '" +
+                department + "'" +
+                ");";
     }
 
     public Item(
