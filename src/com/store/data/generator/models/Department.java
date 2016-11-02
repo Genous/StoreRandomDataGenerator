@@ -49,4 +49,20 @@ public enum Department
                 throw new RuntimeException("Reached invalid location in Department.getStaffSize()");
         }
     }
+
+    public double getStorageCostVariancePerAdultOrChild()
+    {
+        switch (Department.valueOf(this.name()))
+        {
+            case MEN:
+            case WOMEN:
+                return 0.0;
+            case BOYS:
+            case GIRLS:
+                return 0.5;
+            default:
+                return 0.0;
+        }
+    }
+
 }

@@ -13,6 +13,7 @@ import java.util.LinkedList;
     3- Number of items stolen cannot exceed number of items available
     4- Purchases have to be at normal operation hours (9 am to 5 pm)
  */
+/*
 public class PurchaseGenerator
 {
     public LinkedList<Purchase> generatePurchases(final LinkedList<Item> items, final LinkedList<Employee> employees)
@@ -21,4 +22,4 @@ public class PurchaseGenerator
         // 3 methods. getData // get Item/ get employee
 
     }
-}
+}*/

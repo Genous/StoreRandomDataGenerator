@@ -34,9 +34,9 @@ public class Demo
 {
     public static void main(String args[]) throws Exception
     {
-        DateTime dateTime = DateTime.now();
+//        DateTime dateTime = DateTime.now();
 //        testEmployeeGenerator();
-//        testItemsGenerator();
+        testItemsGenerator();
     }
 
     private static void testEmployeeGenerator() throws IOException

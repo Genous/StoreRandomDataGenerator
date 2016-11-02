@@ -35,17 +35,17 @@ public enum ItemType
         switch (ItemType.valueOf(this.toString()))
         {
             case SHIRT:
-                return 0.01;
+                return 0.039;
             case SHORTS:
                 return 0.01;
             case JEANS:
-                return 0.015;
+                return 0.075;
             case HAT:
-                return 0.005;
+                return 0.025;
             case BELT:
-                return 0.003;
+                return 0.05;
             case SOCKS:
-                return 0.001;
+                return 0.03;
             default:
                 return 0.008;
         }
