@@ -34,11 +34,9 @@ public class Employee
                 id + ", '" +
                 firstName + "', '" +
                 lastName + "', '" +
-                department + "', " +
-                level +
-                ");";
+                department + "', '" +
+                level + "');";
     }
-
 
     public Employee(final long id,
                     final String firstName,
