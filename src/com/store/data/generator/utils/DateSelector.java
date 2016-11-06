@@ -15,14 +15,9 @@ public class DateSelector
     {
         DateTime result = startRange.minusYears(5);
 
-        while(result.isBefore(startRange) || result.isAfter(endRange)
-                || result.getHourOfDay() < 9 || result.getHourOfDay() > 17
-                /*|| result.dayOfWeek()*/)
-/** Should we really even consider calculating seconds/minutes/hours in our purchase generator?
- *  Have to consider the "scope" of the "date" datatype that Oracle SQL has for dates.
- *  I don't believe date takes in seconds/minutes, only days/months/years, so I think that calculating random seconds/minutes/hours would be useless as we wouldn't be able to use
- *  it in our actual database schema, I think we should just stick to generating day/month/year
- */
+        while((result.isAfter(startRange) && result.isBefore(endRange))
+                && (result.getHourOfDay() > 9 && result.getHourOfDay() < 17)
+                && (result.getDayOfWeek() != 6 && result.getDayOfWeek() != 7))
         {
             long millisDiff = endRange.getMillis() - startRange.getMillis();
             int secondsDiff = (int) (millisDiff/1000);

@@ -29,6 +29,18 @@ public class Purchase
         return employeeId;
     }
 
+    @Override
+    public String toString()
+    {
+        return "insert into ITEM values(" +
+                id + ", " +
+                employeeId + ", " +
+                itemId + ", " +
+                date + ", " +
+                sellingPrice+ "" +
+                ");";
+    }
+
     public Purchase(final long id,
                     final int sellingPrice,
                     final DateTime date,

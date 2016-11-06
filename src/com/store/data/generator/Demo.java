@@ -8,6 +8,11 @@ import com.store.data.generator.models.Employee;
 import com.store.data.generator.models.Item;
 import com.store.data.generator.utils.NameRetriever;
 import org.joda.time.DateTime;
+import com.store.data.generator.models.Purchase;
+import com.store.data.generator.generators.PurchaseGenerator;
+import com.store.data.generator.utils.EmployeeSelector;
+import com.store.data.generator.utils.ItemSelector;
+import com.store.data.generator.utils.DateSelector;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -36,7 +41,8 @@ public class Demo
     {
 //        DateTime dateTime = DateTime.now();
 //        testEmployeeGenerator();
-        testItemsGenerator();
+//        testItemsGenerator();
+//        testPurchaseGenerator();
     }
 
     private static void testEmployeeGenerator() throws IOException
@@ -65,5 +71,30 @@ public class Demo
 
         System.out.println(itemList.size());
     }
+/*
+    private static void testPurchaseGenerator()
+    {
+        final NameRetriever nameRetriever = new NameRetriever();
+        final NameGenerator nameGenerator = new NameGenerator(nameRetriever);
+        final EmployeeGenerator employeeGenerator = new EmployeeGenerator(nameGenerator);
+        List<Employee> employeeList = employeeGenerator.generateEmployees();
 
+        final StorageCostCalculator storageCostCalculator = new StorageCostCalculator();
+        final ItemGenerator itemGenerator = new ItemGenerator(storageCostCalculator);
+        List<Item> itemList = itemGenerator.listAllCombinations();
+
+        final DateSelector dateSel = new DateSelector(start, end, rand);
+        final ItemSelector itemSel = new ItemSelector(itemList, rand);
+        final EmployeeSelector empSel = new EmployeeSelector(employeeList, rand);
+        final PurchaseGenerator purchaseGen = new PurchaseGenerator(dateSel, itemSel, empSel);
+
+        List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
+
+        for(Purchase purchases : purchaseList)
+        {
+            System.out.println(purchases);
+        }
+
+        System.out.println(purchaseList.size());
+    }*/
 }

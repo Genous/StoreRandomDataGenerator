@@ -10,7 +10,7 @@ import java.util.List;
 
 public class EmployeeSelector
 {
-    public Employee generateEmp(DateTime date, Item item){
+    public Employee getEmp(DateTime date, Item item){
         ArrayList<Employee> empList = new ArrayList<Employee>();
         for (Employee employee : employeeList){
             if(employee.getDepartment() == item.getDepartment())
