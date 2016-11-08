@@ -13,9 +13,8 @@ import com.store.data.generator.generators.PurchaseGenerator;
 import com.store.data.generator.utils.EmployeeSelector;
 import com.store.data.generator.utils.ItemSelector;
 import com.store.data.generator.utils.DateSelector;
-
+import java.util.Random;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -42,7 +41,7 @@ public class Demo
 //        DateTime dateTime = DateTime.now();
 //        testEmployeeGenerator();
 //        testItemsGenerator();
-//        testPurchaseGenerator();
+        testPurchaseGenerator();
     }
 
     private static void testEmployeeGenerator() throws IOException
@@ -71,8 +70,8 @@ public class Demo
 
         System.out.println(itemList.size());
     }
-/*
-    private static void testPurchaseGenerator()
+
+    private static void testPurchaseGenerator() throws IOException
     {
         final NameRetriever nameRetriever = new NameRetriever();
         final NameGenerator nameGenerator = new NameGenerator(nameRetriever);
@@ -83,10 +82,14 @@ public class Demo
         final ItemGenerator itemGenerator = new ItemGenerator(storageCostCalculator);
         List<Item> itemList = itemGenerator.listAllCombinations();
 
+        Random rand = new Random();
+        DateTime start = new DateTime(2005,3,15,12,32,54);
+        DateTime end = new DateTime(2006,4,20,14,56,01);
+
         final DateSelector dateSel = new DateSelector(start, end, rand);
         final ItemSelector itemSel = new ItemSelector(itemList, rand);
         final EmployeeSelector empSel = new EmployeeSelector(employeeList, rand);
-        final PurchaseGenerator purchaseGen = new PurchaseGenerator(dateSel, itemSel, empSel);
+        final PurchaseGenerator purchaseGen = new PurchaseGenerator(dateSel, empSel, itemSel);
 
         List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
 
@@ -96,5 +99,5 @@ public class Demo
         }
 
         System.out.println(purchaseList.size());
-    }*/
+    }
 }

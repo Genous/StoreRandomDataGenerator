@@ -1,6 +1,7 @@
 package com.store.data.generator.models;
 
 import org.joda.time.DateTime;
+import java.util.Locale;
 
 public class Purchase
 {
@@ -32,11 +33,13 @@ public class Purchase
     @Override
     public String toString()
     {
-        return "insert into ITEM values(" +
+        String dateStr = date.toString("MM/dd/yyyy", Locale.US);
+
+        return "insert into PURCHASEEVENT values(" +
                 id + ", " +
                 employeeId + ", " +
-                itemId + ", " +
-                date + ", " +
+                itemId + ", (TO_DATE('" +
+                dateStr + "', 'mm/dd/yyyy')), " +
                 sellingPrice+ "" +
                 ");";
     }

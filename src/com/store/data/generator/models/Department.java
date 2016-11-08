@@ -46,7 +46,7 @@ public enum Department
                 return 9;
 
             default:
-                throw new RuntimeException("Reached invalid location in Department.getStaffSize()");
+                throw new RuntimeException("Reached invalid location in Department.getTotalPurchases()");
         }
     }
 
@@ -57,11 +57,13 @@ public enum Department
             case MEN:
             case WOMEN:
                 return 0.0;
+
             case BOYS:
             case GIRLS:
                 return 0.5;
+
             default:
-                return 0.0;
+                throw new RuntimeException("Reached invalid location in Department.getStorageCostVariancePerAdultOrChild()");
         }
     }
 

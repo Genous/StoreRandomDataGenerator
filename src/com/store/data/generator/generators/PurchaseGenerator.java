@@ -6,8 +6,11 @@ import com.store.data.generator.models.Purchase;
 import com.store.data.generator.utils.DateSelector;
 import com.store.data.generator.utils.EmployeeSelector;
 import com.store.data.generator.utils.ItemSelector;
+import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.LinkedList;
+import com.store.data.generator.models.Department;
 
 /**
     1- Items are ONLY sold by employees in the same department
@@ -18,7 +21,7 @@ import java.util.LinkedList;
 
 public class PurchaseGenerator
 {
-    public LinkedList<Purchase> generatePurchases(final LinkedList<Item> items, final LinkedList<Employee> employees)
+    public LinkedList<Purchase> generatePurchases(final List<Item> items, final List<Employee> employees)
     {
         // date >> item >> employee
         // 3 methods. get Date / get Item/ get Employee
@@ -27,15 +30,22 @@ public class PurchaseGenerator
 
         int purchaseId = 1;
 
-        for()
+        for(Department department : Department.values())
         {
-            for()
+            for(int i = 0; i < department.getTotalPurchases(); i++)
             {
-                for()
-                {
-
+                final DateTime date = dateSel.getDate();
+                final Item item = itemSel.getItem();
+                final Employee employee = empSel.getEmp(item);
+                final Purchase purchase = new Purchase(
+                                            purchaseId,
+                                            5,
+                                            date,
+                                            item.getId(),
+                                            employee.getId());
+                 purchaseList.add(purchase);
+                 purchaseId++;
                 }
-            }
          }
 
         return purchaseList;

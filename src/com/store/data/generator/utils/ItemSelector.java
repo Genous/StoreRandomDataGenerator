@@ -1,15 +1,13 @@
 package com.store.data.generator.utils;
 
 import com.store.data.generator.models.Item;
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
 
 public class ItemSelector
 {
-    public Item getItem(DateTime date, Item item)
+    public Item getItem()
     {
         ArrayList<Item> itList = new ArrayList<>();
 
