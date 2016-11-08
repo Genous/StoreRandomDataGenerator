@@ -15,9 +15,9 @@ public class DateSelector
     {
         DateTime result = startRange.minusYears(5);
 
-        while((result.isAfter(startRange) && result.isBefore(endRange))
-                && (result.getHourOfDay() > 9 && result.getHourOfDay() < 17)
-                && (result.getDayOfWeek() != 6 && result.getDayOfWeek() != 7))
+        while(result.isBefore(startRange) || result.isAfter(endRange)
+                || result.getHourOfDay() < 9 || result.getHourOfDay() > 17
+                || result.getDayOfWeek() == 6 || result.getDayOfWeek() == 7)
         {
             long millisDiff = endRange.getMillis() - startRange.getMillis();
             int secondsDiff = (int) (millisDiff/1000);
