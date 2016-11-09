@@ -1,5 +1,6 @@
 package com.store.data.generator;
 
+import com.store.data.generator.calculators.PriceCalculator;
 import com.store.data.generator.calculators.StorageCostCalculator;
 import com.store.data.generator.generators.EmployeeGenerator;
 import com.store.data.generator.generators.ItemGenerator;
@@ -16,6 +17,7 @@ import com.store.data.generator.utils.DateSelector;
 import java.util.Random;
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Purchases:
@@ -82,15 +84,29 @@ public class Demo
         final ItemGenerator itemGenerator = new ItemGenerator(storageCostCalculator);
         List<Item> itemList = itemGenerator.listAllCombinations();
 
-        Random rand = new Random();
-        DateTime start = new DateTime(2005,3,15,12,32,54);
-        DateTime end = new DateTime(2006,4,20,14,56,01);
+        int startYear, startMonth, startDay, endYear, endMonth, endDay;
+        Scanner scan = new Scanner(System.in);
 
-        final DateSelector dateSel = new DateSelector(start, end, rand);
+        System.out.println("Enter starting date (Month Day Year)");
+        startMonth = scan.nextInt();
+        startDay = scan.nextInt();
+        startYear = scan.nextInt();
+
+        System.out.println("Enter ending date (Month Day Year) [pls keep start to end date range below 5 months or else earliest dates will cut off]");
+
+        endMonth = scan.nextInt();
+        endDay = scan.nextInt();
+        endYear = scan.nextInt();
+
+        Random rand = new Random();
+        DateTime start = new DateTime(startYear,startMonth,startDay,0,0,0);
+        DateTime end = new DateTime(endYear, endMonth, endDay,0,0,0);
+
         final ItemSelector itemSel = new ItemSelector(itemList, rand);
         final EmployeeSelector empSel = new EmployeeSelector(employeeList, rand);
-        final PurchaseGenerator purchaseGen = new PurchaseGenerator(dateSel, empSel, itemSel);
 
+        final PriceCalculator priceCalculator = new PriceCalculator();
+        final PurchaseGenerator purchaseGen = new PurchaseGenerator(start, end, empSel, itemSel, priceCalculator);
         List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
 
         for(Purchase purchases : purchaseList)

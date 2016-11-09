@@ -10,7 +10,7 @@ public class Purchase
         return id;
     }
 
-    public int getSellingPrice()
+    public double getSellingPrice()
     {
         return sellingPrice;
     }
@@ -45,7 +45,7 @@ public class Purchase
     }
 
     public Purchase(final long id,
-                    final int sellingPrice,
+                    final double sellingPrice,
                     final DateTime date,
                     final long itemId,
                     final long employeeId)
@@ -58,7 +58,7 @@ public class Purchase
     }
 
     private final long id;
-    private final int sellingPrice;
+    private final double sellingPrice;
     private final DateTime date;
     private final long itemId;
     private final long employeeId;

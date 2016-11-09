@@ -1,16 +1,15 @@
 package com.store.data.generator.generators;
 
+import com.store.data.generator.calculators.PriceCalculator;
 import com.store.data.generator.models.Employee;
 import com.store.data.generator.models.Item;
 import com.store.data.generator.models.Purchase;
-import com.store.data.generator.utils.DateSelector;
 import com.store.data.generator.utils.EmployeeSelector;
 import com.store.data.generator.utils.ItemSelector;
 import org.joda.time.DateTime;
-
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 import java.util.LinkedList;
-import com.store.data.generator.models.Department;
 
 /**
     1- Items are ONLY sold by employees in the same department
@@ -23,42 +22,55 @@ public class PurchaseGenerator
 {
     public LinkedList<Purchase> generatePurchases(final List<Item> items, final List<Employee> employees)
     {
-        // date >> item >> employee
-        // 3 methods. get Date / get Item/ get Employee
-
         final LinkedList<Purchase> purchaseList = new LinkedList<>();
 
         int purchaseId = 1;
+        int DailyPurchAmt = 0;
 
-        for(Department department : Department.values())
+        DateTime day = start;
+
+        while(!day.toLocalDate().isEqual(end.toLocalDate()))
         {
-            for(int i = 0; i < department.getTotalPurchases(); i++)
+            if(day.getDayOfWeek() == 6 || day.getDayOfWeek() == 7) // skip saturday/sunday
             {
-                final DateTime date = dateSel.getDate();
+                day = day.plusDays(1);
+                continue;
+            }
+
+            DailyPurchAmt = ThreadLocalRandom.current().nextInt(60, 100 + 1);
+
+            for(int i = 0; i < DailyPurchAmt; i++)
+            {
                 final Item item = itemSel.getItem();
                 final Employee employee = empSel.getEmp(item);
                 final Purchase purchase = new Purchase(
                                             purchaseId,
-                                            5,
-                                            date,
+                                            priceCalc.calculatePrice(item.getCostOfStoragePerUnit(), Math.random()),
+                                            day,
                                             item.getId(),
                                             employee.getId());
                  purchaseList.add(purchase);
                  purchaseId++;
-                }
+            }
+
+            day = day.plusDays(1);
          }
 
         return purchaseList;
     }
 
-    public PurchaseGenerator(final DateSelector dateSel, final EmployeeSelector empSel, final ItemSelector itemSel)
+    public PurchaseGenerator(final DateTime start, final DateTime end, final EmployeeSelector empSel, final ItemSelector itemSel, final PriceCalculator priceCalc)
     {
-        this.dateSel = dateSel;
+        this.start = start;
+        this.end = end;
         this.empSel = empSel;
         this.itemSel = itemSel;
+        this.priceCalc = priceCalc;
     }
 
-    private final DateSelector dateSel;
+    private final DateTime start;
+    private final DateTime end;
     private final EmployeeSelector empSel;
     private final ItemSelector itemSel;
+    private final PriceCalculator priceCalc;
 }
