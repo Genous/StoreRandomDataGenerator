@@ -14,10 +14,15 @@ import com.store.data.generator.generators.PurchaseGenerator;
 import com.store.data.generator.utils.EmployeeSelector;
 import com.store.data.generator.utils.ItemSelector;
 import com.store.data.generator.utils.DateSelector;
+import java.io.File;
 import java.util.Random;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Purchases:
@@ -40,10 +45,11 @@ public class Demo
 {
     public static void main(String args[]) throws Exception
     {
-//        DateTime dateTime = DateTime.now();
 //        testEmployeeGenerator();
 //        testItemsGenerator();
-        testPurchaseGenerator();
+//        testPurchaseGenerator();
+        writeToEmployeeList();
+        writeToItemList();
     }
 
     private static void testEmployeeGenerator() throws IOException
@@ -59,6 +65,63 @@ public class Demo
         }
 
         System.out.println(employeeList.size());
+    }
+
+    private static void writeToEmployeeList() throws IOException
+    {
+        File empFile = new File("EmployeeList.txt");
+        FileReader empRead = new FileReader(empFile.getAbsoluteFile());
+        BufferedReader bRead = new BufferedReader(empRead);
+
+        if(bRead.readLine() != null)
+        {
+            System.out.println("File is already written to, aborting");
+            return;
+        }
+
+        final NameRetriever nameRetriever = new NameRetriever();
+        final NameGenerator nameGenerator = new NameGenerator(nameRetriever);
+        final EmployeeGenerator employeeGenerator = new EmployeeGenerator(nameGenerator);
+        List<Employee> employeeList = employeeGenerator.generateEmployees();
+
+        FileWriter empWrite = new FileWriter(empFile.getAbsoluteFile());
+        BufferedWriter bWrite = new BufferedWriter(empWrite);
+
+        for(Employee employee : employeeList)
+        {
+            String empString = employee.getId() + " " + employee.getFirstName() + " " + employee.getLastName() + " " + employee.getLevel() + " " + employee.getDepartment() + " \n";
+            bWrite.write(empString);
+        }
+        bWrite.close();
+
+    }
+
+    private static void writeToItemList() throws IOException
+    {
+        File ItFile = new File("ItemList.txt");
+        FileReader ItRead = new FileReader(ItFile.getAbsoluteFile());
+        BufferedReader bRead = new BufferedReader(ItRead);
+
+        if(bRead.readLine() != null)
+        {
+            System.out.println("File is already written to, aborting");
+            return;
+        }
+
+        final StorageCostCalculator storageCostCalculator = new StorageCostCalculator();
+        final ItemGenerator itemGenerator = new ItemGenerator(storageCostCalculator);
+        List<Item> itemList = itemGenerator.listAllCombinations();
+
+        FileWriter ItWrite = new FileWriter(ItFile.getAbsoluteFile());
+        BufferedWriter bWrite = new BufferedWriter(ItWrite);
+
+        for(Item items: itemList)
+        {
+            String itString = items.getId() + " " + items.getItemType() + " " + items.getItemSize() + " " + items.getCostOfStoragePerUnit() + " " + items.getDepartment() + " \n";
+            bWrite.write(itString);
+        }
+        bWrite.close();
+
     }
 
     private static void testItemsGenerator() {
