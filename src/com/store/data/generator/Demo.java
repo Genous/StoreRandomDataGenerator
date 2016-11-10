@@ -92,7 +92,7 @@ public class Demo
         startDay = scan.nextInt();
         startYear = scan.nextInt();
 
-        System.out.println("Enter ending date (Month Day Year) [pls keep start to end date range below 5 months or else earliest dates will cut off]");
+        System.out.println("Enter ending date (Month Day Year) [does not generate purchases ON the end date] [keep start to end date range below ~5 months or else earliest dates will cut off on terminal]");
 
         endMonth = scan.nextInt();
         endDay = scan.nextInt();
