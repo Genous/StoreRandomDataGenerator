@@ -43,11 +43,9 @@ public class Demo
     {
 //        testEmployeeGenerator();
 //        testItemsGenerator();
-//        testPurchaseGenerator();
+        testPurchaseGenerator();
 //        writeToEmployeeList();
 //       writeToItemList();
-//        readEmpFile();
-        readItemFile();
     }
 
     private static void testEmployeeGenerator() throws IOException
@@ -136,14 +134,11 @@ public class Demo
 
     private static void testPurchaseGenerator() throws IOException
     {
-        final NameRetriever nameRetriever = new NameRetriever();
-        final NameGenerator nameGenerator = new NameGenerator(nameRetriever);
-        final EmployeeGenerator employeeGenerator = new EmployeeGenerator(nameGenerator);
-        List<Employee> employeeList = employeeGenerator.generateEmployees();
+        List<Employee> employeeList = new ArrayList<>();
+        readEmpFile(employeeList);
 
-        final StorageCostCalculator storageCostCalculator = new StorageCostCalculator();
-        final ItemGenerator itemGenerator = new ItemGenerator(storageCostCalculator);
-        List<Item> itemList = itemGenerator.listAllCombinations();
+        List<Item> itemList = new ArrayList<Item>();
+        readItemFile(itemList);
 
         int startYear, startMonth, startDay, endYear, endMonth, endDay;
         Scanner scan = new Scanner(System.in);
@@ -178,7 +173,7 @@ public class Demo
         System.out.println(purchaseList.size());
     }
 
-    private static void readEmpFile() throws IOException
+    private static List<Employee> readEmpFile(List<Employee> inputList) throws IOException
     {
         File empFile = new File("EmployeeList.txt");
         Scanner fileScan = new Scanner(empFile);
@@ -186,10 +181,8 @@ public class Demo
         if(!fileScan.hasNext())
         {
             System.out.println("File is empty, aborting");
-            return;
+            return null;
         }
-
-        List<Employee> employeeList = new ArrayList<Employee>();
 
         String val = null;
 
@@ -202,18 +195,15 @@ public class Demo
                     Level.valueOf(fileScan.next()),
                     Department.valueOf(fileScan.next()));
 
-            employeeList.add(employee);
-        }
-
-        for(Employee employee : employeeList)
-        {
-            System.out.println(employee);
+            inputList.add(employee);
         }
 
         fileScan.close();
+
+        return inputList;
     }
 
-    private static void readItemFile() throws IOException
+    private static List<Item> readItemFile(List<Item> inputList) throws IOException
     {
         File itFile = new File("ItemList.txt");
         Scanner fileScan = new Scanner(itFile);
@@ -221,10 +211,8 @@ public class Demo
         if(!fileScan.hasNext())
         {
             System.out.println("File is empty, aborting");
-            return;
+            return null;
         }
-
-        List<Item> itemList = new ArrayList<Item>();
 
         String val = null;
 
@@ -237,14 +225,11 @@ public class Demo
                     Double.parseDouble(fileScan.next()),
                     Department.valueOf(fileScan.next()));
 
-            itemList.add(item);
-        }
-
-        for(Item items : itemList)
-        {
-            System.out.println(items);
+            inputList.add(item);
         }
 
         fileScan.close();
+
+        return inputList;
     }
 }
