@@ -34,7 +34,8 @@ public class ItemGenerator
                             itemType,
                             itemSize,
                             storageCostCalculator.calculateCost(itemType, itemSize, department, Math.random()),
-                            department);
+                            department,
+                            100);
                     itemsList.add(currentItem1);
                     currentItemId++;
 
@@ -43,7 +44,8 @@ public class ItemGenerator
                             itemType,
                             itemSize,
                             storageCostCalculator.calculateCost(itemType, itemSize, department, Math.random()),
-                            department);
+                            department,
+                            100);
                     itemsList.add(currentItem2);
                     currentItemId++;
 
@@ -52,7 +54,8 @@ public class ItemGenerator
                             itemType,
                             itemSize,
                             storageCostCalculator.calculateCost(itemType, itemSize, department, Math.random()),
-                            department);
+                            department,
+                            100);
                     itemsList.add(currentItem3);
                     currentItemId++;
                 }

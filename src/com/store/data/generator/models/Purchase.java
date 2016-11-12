@@ -41,7 +41,7 @@ public class Purchase
                 itemId + ", (TO_DATE('" +
                 dateStr + "', 'mm/dd/yyyy')), " +
                 sellingPrice+ "" +
-                ");";
+                "); \n";
     }
 
     public Purchase(final long id,

@@ -12,13 +12,9 @@ import com.store.data.generator.generators.PurchaseGenerator;
 import com.store.data.generator.utils.EmployeeSelector;
 import com.store.data.generator.utils.ItemSelector;
 import com.store.data.generator.utils.DateSelector;
-import java.io.File;
+
+import java.io.*;
 import java.util.*;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * Purchases:
@@ -37,15 +33,38 @@ import java.io.IOException;
  *
  * Tracking item sales to find which one are seasonal and when
  */
+
 public class Demo
 {
     public static void main(String args[]) throws Exception
     {
 //        testEmployeeGenerator();
 //        testItemsGenerator();
-        testPurchaseGenerator();
+       testPurchaseGenerator();
 //        writeToEmployeeList();
 //       writeToItemList();
+//        resetStocks();
+    }
+
+    private static void resetStocks() throws IOException
+    {
+        List<Item> itemList = new ArrayList<Item>();
+        readItemFile(itemList);
+
+        File ItFile = new File("ItemList.txt");
+
+        PrintWriter writer = new PrintWriter(ItFile);
+        writer.close();
+
+        FileWriter ItWrite = new FileWriter(ItFile.getAbsoluteFile());
+        BufferedWriter bWrite = new BufferedWriter(ItWrite);
+
+        for(Item items: itemList)
+        {
+            String itString = items.getId() + " " + items.getItemType() + " " + items.getItemSize() + " " + items.getCostOfStoragePerUnit() + " " + items.getDepartment() + " " + 100 + " \n";
+            bWrite.write(itString);
+        }
+        bWrite.close();
     }
 
     private static void testEmployeeGenerator() throws IOException
@@ -89,7 +108,6 @@ public class Demo
             bWrite.write(empString);
         }
         bWrite.close();
-
     }
 
     private static void writeToItemList() throws IOException
@@ -113,11 +131,10 @@ public class Demo
 
         for(Item items: itemList)
         {
-            String itString = items.getId() + " " + items.getItemType() + " " + items.getItemSize() + " " + items.getCostOfStoragePerUnit() + " " + items.getDepartment() + " \n";
+            String itString = items.getId() + " " + items.getItemType() + " " + items.getItemSize() + " " + items.getCostOfStoragePerUnit() + " " + items.getDepartment() + " " + items.getStock() + " \n";
             bWrite.write(itString);
         }
         bWrite.close();
-
     }
 
     private static void testItemsGenerator() {
@@ -165,12 +182,16 @@ public class Demo
         final PurchaseGenerator purchaseGen = new PurchaseGenerator(start, end, empSel, itemSel, priceCalculator);
         List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
 
-        for(Purchase purchases : purchaseList)
-        {
-            System.out.println(purchases);
-        }
+        File PurchFile = new File("PurchaseList.txt");
+        FileWriter PurchWrite = new FileWriter(PurchFile, true);
+        BufferedWriter bWrite = new BufferedWriter(PurchWrite);
 
-        System.out.println(purchaseList.size());
+        for(Purchase purchase : purchaseList)
+        {
+            String test = purchase.toString();
+            bWrite.write(test);
+        }
+        bWrite.close();
     }
 
     private static List<Employee> readEmpFile(List<Employee> inputList) throws IOException
@@ -223,7 +244,8 @@ public class Demo
                     ItemType.valueOf(fileScan.next()),
                     ItemSize.valueOf(fileScan.next()),
                     Double.parseDouble(fileScan.next()),
-                    Department.valueOf(fileScan.next()));
+                    Department.valueOf(fileScan.next()),
+                    Long.parseLong(fileScan.next(), 10));
 
             inputList.add(item);
         }

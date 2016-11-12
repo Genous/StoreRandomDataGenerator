@@ -27,6 +27,16 @@ public class Item
         return department;
     }
 
+    public long getStock()
+    {
+        return stock;
+    }
+
+    public void setStock(long val)
+    {
+        stock = stock + val;
+    }
+
     @Override
     public String toString()
     {
@@ -44,13 +54,15 @@ public class Item
             final ItemType itemType,
             final ItemSize itemSize,
             final double costOfStoragePerUnit,
-            final Department department)
+            final Department department,
+            long stock)
     {
         this.id = id;
         this.itemType = itemType;
         this.itemSize = itemSize;
         this.costOfStoragePerUnit = costOfStoragePerUnit;
         this.department = department;
+        this.stock = stock;
     }
 
     private final long id;
@@ -58,4 +70,5 @@ public class Item
     private final ItemSize itemSize;
     private final double costOfStoragePerUnit;
     private final Department department;
+    private long stock;
 }

@@ -7,6 +7,12 @@ import com.store.data.generator.models.Purchase;
 import com.store.data.generator.utils.EmployeeSelector;
 import com.store.data.generator.utils.ItemSelector;
 import org.joda.time.DateTime;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 import java.util.LinkedList;
@@ -20,14 +26,20 @@ import java.util.LinkedList;
 
 public class PurchaseGenerator
 {
-    public LinkedList<Purchase> generatePurchases(final List<Item> items, final List<Employee> employees)
+    public LinkedList<Purchase> generatePurchases(final List<Item> items, final List<Employee> employees) throws IOException
     {
         final LinkedList<Purchase> purchaseList = new LinkedList<>();
 
-        int purchaseId = 1;
         int DailyPurchAmt = 0;
 
         DateTime day = start;
+
+        File nextPurchID = new File("PurchID.txt");
+        Scanner fileScan = new Scanner(nextPurchID);
+
+        long purchaseId = Long.parseLong(fileScan.next(), 10); // read current ID;
+
+        fileScan.close();
 
         while(!day.toLocalDate().isEqual(end.toLocalDate()))
         {
@@ -41,7 +53,7 @@ public class PurchaseGenerator
 
             for(int i = 0; i < DailyPurchAmt; i++)
             {
-                final Item item = itemSel.getItem();
+                final Item item = itemSel.getItem(day);
                 final Employee employee = empSel.getEmp(item);
                 final Purchase purchase = new Purchase(
                                             purchaseId,
@@ -51,6 +63,11 @@ public class PurchaseGenerator
                                             employee.getId());
                  purchaseList.add(purchase);
                  purchaseId++;
+
+                 FileWriter PurchWriteNewID = new FileWriter(nextPurchID.getAbsoluteFile());
+                 BufferedWriter bWriteNewID = new BufferedWriter(PurchWriteNewID);
+                 bWriteNewID.write(Long.toString(purchaseId));
+                 bWriteNewID.close();
             }
 
             day = day.plusDays(1);
