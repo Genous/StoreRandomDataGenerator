@@ -1,32 +1,26 @@
 package com.store.data.generator.generators;
 
 import org.joda.time.DateTime;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Scanner;
 
 public class InventoryRestockingGenerator
 {
     public void generateRestocks() throws IOException
     {
-        File nextResID = new File("ResID.txt");
         File resFile = new File("RestockList.txt");
         FileWriter resWrite = new FileWriter(resFile, true);
         BufferedWriter bWrite = new BufferedWriter(resWrite);
-        Scanner fileScan = new Scanner(nextResID);
 
-        long resID =  Long.parseLong(fileScan.next(), 10); // read current ID
-
-        fileScan.close();
+        long resID =  id;
 
         String dateStr = dateOfRestocking.toString("MM/dd/yyyy", Locale.US);
 
         String resString = "insert into RESTOCKEVENT values(" +
-                resID + ", " +
+                id + ", " +
                 itemId + ", (TO_DATE('" +
                 dateStr + "', 'mm/dd/yyyy')), " +
                 quantity + "); \n";
@@ -34,11 +28,13 @@ public class InventoryRestockingGenerator
         bWrite.write(resString);
         bWrite.close();
 
-        resID++; // get next restock ID for later
+        resID++; // get next restock ID for later generations
 
+        File nextResID = new File("ResID.txt");
         FileWriter resWriteNewID = new FileWriter(nextResID.getAbsoluteFile());
         BufferedWriter bWriteNewID = new BufferedWriter(resWriteNewID);
         bWriteNewID.write(Long.toString(resID));
+
         bWriteNewID.close();
     }
 

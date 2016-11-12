@@ -36,9 +36,7 @@ public class PurchaseGenerator
 
         File nextPurchID = new File("PurchID.txt");
         Scanner fileScan = new Scanner(nextPurchID);
-
         long purchaseId = Long.parseLong(fileScan.next(), 10); // read current ID;
-
         fileScan.close();
 
         while(!day.toLocalDate().isEqual(end.toLocalDate()))
@@ -72,6 +70,18 @@ public class PurchaseGenerator
 
             day = day.plusDays(1);
          }
+
+        File PurchFile = new File("PurchaseList.txt");
+        FileWriter PurchWrite = new FileWriter(PurchFile, true);
+        BufferedWriter bWrite = new BufferedWriter(PurchWrite);
+
+        for(Purchase purchase : purchaseList)
+        {
+            String test = purchase.toString();
+            bWrite.write(test);
+        }
+
+        bWrite.close();
 
         return purchaseList;
     }

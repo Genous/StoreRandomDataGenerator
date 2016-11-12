@@ -181,17 +181,6 @@ public class Demo
         final PriceCalculator priceCalculator = new PriceCalculator();
         final PurchaseGenerator purchaseGen = new PurchaseGenerator(start, end, empSel, itemSel, priceCalculator);
         List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
-
-        File PurchFile = new File("PurchaseList.txt");
-        FileWriter PurchWrite = new FileWriter(PurchFile, true);
-        BufferedWriter bWrite = new BufferedWriter(PurchWrite);
-
-        for(Purchase purchase : purchaseList)
-        {
-            String test = purchase.toString();
-            bWrite.write(test);
-        }
-        bWrite.close();
     }
 
     private static List<Employee> readEmpFile(List<Employee> inputList) throws IOException
