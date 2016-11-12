@@ -34,6 +34,21 @@ import java.util.*;
  * Tracking item sales to find which one are seasonal and when
  */
 
+/**
+ * TRENDS TO CONSIDER:
+ * 1) Seasonal trends -> shirts sell more in the summer months, jackets in the winter months, etc;
+ * 2) Certain days/weeks, like black friday, see spikes in overall purchases, etc.
+ * 3) Have certain departments sell more items than others (e.g. womens sells 20% more items than boys on average)
+ * 4) Certain days of the weeks see more sales on average (e.g. friday sells 20% on average than mondays)
+ * 5) Increase chances of getting higher level employees to sell items more frequently than lower level employees
+ * 6) Have certain sizes be sold more on average than others (e.g. womens dept sees more sales of Medium size items vs. mens seeing more Large sizes being sold)
+ * 7)
+ *
+ *  [Kevin] I was thinking we somehow check if an item has an attribute that satisfies these above conditions, and just repeatedly add say, X more instances of that specific item to the itemlist, so
+ *  itemselector has a higher chance of picking out those specific items randomly vs others that don't satisfy those conditions (may be better solutions though, just brainstorming)
+ *  Same above for employeeselector too for higher vs lower employees, maybe each level 5 is repeated in the list 5 times, vs 4 being in it 4 times, etc.
+ */
+
 public class Demo
 {
     public static void main(String args[]) throws Exception
