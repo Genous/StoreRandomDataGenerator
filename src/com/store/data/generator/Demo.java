@@ -40,7 +40,7 @@ import java.util.*;
  * DONE - 2) Certain holiday days/weeks, like black friday, see increases in overall purchases, etc. - DONE
  * 3) Have certain departments sell more items than others (e.g. womens sells 20% more items than boys on average)
  * DONE - 4) Certain days of the week see more sales on average (e.g. friday sells more on average than on mondays) - DONE
- * 5) Increase chances of getting higher level employees to sell items more frequently than lower level employees
+ * DONE - 5) Increase chances of getting higher level employees to sell items more frequently than lower level employees - DONE
  * 6) Have certain sizes be sold more on average than others (e.g. womens dept sees more sales of Medium size items vs. mens seeing more Large sizes being sold)
  * 7)
  *
