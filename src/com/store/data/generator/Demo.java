@@ -37,9 +37,9 @@ import java.util.*;
 /**
  * TRENDS TO CONSIDER:
  * 1) Seasonal trends -> shirts sell more in the summer months, jackets in the winter months, etc;
- * 2) Certain days/weeks, like black friday, see spikes in overall purchases, etc.
+ * DONE - 2) Certain holiday days/weeks, like black friday, see increases in overall purchases, etc. - DONE
  * 3) Have certain departments sell more items than others (e.g. womens sells 20% more items than boys on average)
- * 4) Certain days of the weeks see more sales on average (e.g. friday sells 20% on average than mondays)
+ * DONE - 4) Certain days of the week see more sales on average (e.g. friday sells more on average than on mondays) - DONE
  * 5) Increase chances of getting higher level employees to sell items more frequently than lower level employees
  * 6) Have certain sizes be sold more on average than others (e.g. womens dept sees more sales of Medium size items vs. mens seeing more Large sizes being sold)
  * 7)
@@ -59,10 +59,48 @@ public class Demo
  //       writeToEmployeeList();
 //       writeToItemList();
 //        resetStocks();
-        testPurchaseTrends();
+//        testPurchaseDateTrends();
+        testEmployeeTrends();
     }
 
-          private static void testPurchaseTrends() throws IOException
+    private static void testPurchaseDateTrends() throws IOException
+    {
+        List<Employee> employeeList = new ArrayList<>();
+        readEmpFile(employeeList);
+
+        List<Item> itemList = new ArrayList<Item>();
+        readItemFile(itemList);
+
+        int startYear, startMonth, startDay, endYear, endMonth, endDay;
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Enter starting date (Month Day Year)");
+        startMonth = scan.nextInt();
+        startDay = scan.nextInt();
+        startYear = scan.nextInt();
+
+        System.out.println("Enter ending date (Month Day Year) [does not generate purchases ON the end date] [keep start to end date range below ~5 months or else earliest dates will cut off on terminal]");
+
+        endMonth = scan.nextInt();
+        endDay = scan.nextInt();
+        endYear = scan.nextInt();
+
+        Random rand = new Random();
+        DateTime start = new DateTime(startYear,startMonth,startDay,0,0,0);
+        DateTime end = new DateTime(endYear, endMonth, endDay,0,0,0);
+
+        final ItemSelector itemSel = new ItemSelector(itemList, rand);
+        final EmployeeSelector empSel = new EmployeeSelector(employeeList, rand);
+
+        final PriceCalculator priceCalculator = new PriceCalculator();
+        final PurchaseGenerator purchaseGen = new PurchaseGenerator(start, end, empSel, itemSel, priceCalculator);
+        List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
+
+        System.out.println(purchaseList.size());
+    }
+
+
+          private static void testEmployeeTrends() throws IOException
      {
      List<Employee> employeeList = new ArrayList<>();
      readEmpFile(employeeList);
@@ -78,7 +116,7 @@ public class Demo
      startDay = scan.nextInt();
      startYear = scan.nextInt();
 
-     System.out.println("Enter ending date (Month Day Year) [does not generate purchases ON the end date] [keep start to end date range below ~5 months or else earliest dates will cut off on terminal]");
+     System.out.println("Enter ending date (Month Day Year) [does not generate purchases ON the end date] [takes a while for long date ranges]");
 
      endMonth = scan.nextInt();
      endDay = scan.nextInt();
@@ -95,7 +133,47 @@ public class Demo
      final PurchaseGenerator purchaseGen = new PurchaseGenerator(start, end, empSel, itemSel, priceCalculator);
      List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
 
-     System.out.println(purchaseList.size());
+         int oneCount = 0;
+         int twoCount = 0;
+         int threeCount = 0;
+         int fourCount = 0;
+         int fiveCount = 0;
+
+         for(Purchase purchases : purchaseList)
+         {
+            for(Employee employee : employeeList)
+            {
+                if(employee.getId() == purchases.getEmployeeId())
+                {
+                    switch(employee.getLevel())
+                    {
+                        case ONE:
+                            oneCount++;
+                            break;
+                        case TWO:
+                            twoCount++;
+                            break;
+                        case THREE:
+                            threeCount++;
+                            break;
+                        case FOUR:
+                            fourCount++;
+                            break;
+                        case FIVE:
+                            fiveCount++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+         }
+
+         System.out.println(oneCount);
+         System.out.println(twoCount);
+         System.out.println(threeCount);
+         System.out.println(fourCount);
+         System.out.println(fiveCount);
      }
 
     private static void resetStocks() throws IOException

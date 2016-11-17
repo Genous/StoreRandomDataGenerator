@@ -26,7 +26,49 @@ public class EmployeeSelector
         }
         for (Employee employee : employeeList)
         {
-            employeeMap.get(employee.getDepartment()).add(employee);
+            switch(employee.getLevel()) // increase chances of higher level employees selling more items
+            {
+                case ONE: // level ones sell the least
+                    for(int i = 0; i < 1; i++)
+                    {
+                        employeeMap.get(employee.getDepartment()).add(employee);
+
+                    }
+                    break;
+                case TWO: // level twos sell a little more than ones
+                    for(int i = 0; i < 4; i++)
+                    {
+                        employeeMap.get(employee.getDepartment()).add(employee);
+
+                    }
+                    break;
+                case THREE: // level threes sell a decent amount more than twos
+                            // (make it so level threes are most "efficient" raise to have employees at,
+                            // later "raises" see diminishing returns in terms of employee performance
+                    for(int i = 0; i < 8; i++)
+                    {
+                        employeeMap.get(employee.getDepartment()).add(employee);
+
+                    }
+                    break;
+                case FOUR: // level fours sell a little more than threes
+                    for(int i = 0; i < 15; i++)
+                    {
+                        employeeMap.get(employee.getDepartment()).add(employee);
+
+                    }
+                    break;
+                case FIVE: // level fives sell the same as fours
+                    for(int i = 0; i < 16; i++)
+                    {
+                        employeeMap.get(employee.getDepartment()).add(employee);
+
+                    }
+                    break;
+                default:
+                    employeeMap.get(employee.getDepartment()).add(employee);
+                    break;
+            }
         }
 
         this.rand = rand;

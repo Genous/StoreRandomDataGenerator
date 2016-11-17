@@ -15,6 +15,9 @@ public class ItemSelector
     public Item getItem(DateTime date) throws IOException
     {
         //todo hash items based on type, then use the date to make patterns based on type. (t-shirts sell more in the summer etc...)
+
+
+
         int randomNum = rand.nextInt(itemsArray.size());
 
         itemsArray.get(randomNum).setStock(-1);
