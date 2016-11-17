@@ -47,7 +47,7 @@ public class PurchaseGenerator
                 continue;
             }
 
-            DailyPurchAmt = ThreadLocalRandom.current().nextInt(60, 100 + 1);
+            DailyPurchAmt = getDateVariance(day);
 
             for(int i = 0; i < DailyPurchAmt; i++)
             {
@@ -84,6 +84,115 @@ public class PurchaseGenerator
         bWrite.close();
 
         return purchaseList;
+    }
+
+    public int getDateVariance(DateTime date)
+    {
+         int dayVariance = 0;
+
+         switch (date.getDayOfWeek()) // add purchase amount variance for normal days
+         {
+         case 1: // monday - the least sales
+              dayVariance += ThreadLocalRandom.current().nextInt(30, 50 + 1);
+         break;
+         case 2: // tuesday - low to medium sales
+              dayVariance += ThreadLocalRandom.current().nextInt(40, 60 + 1);
+         break;
+         case 3: // wednesday - medium sales
+             dayVariance += ThreadLocalRandom.current().nextInt(50, 85 + 1);
+         break;
+         case 4: // thursday - medium sales
+             dayVariance += ThreadLocalRandom.current().nextInt(50, 85 + 1);
+         break;
+         case 5: // friday - the most sales
+             dayVariance += ThreadLocalRandom.current().nextInt(60, 100 + 1);
+         break;
+         default: // shouldn't ever need to access this value but yolo
+             dayVariance += ThreadLocalRandom.current().nextInt(50, 85 + 1);
+         break;
+         }
+
+         switch (date.getMonthOfYear()) // add extra purchases for holiday weeks/days
+         {
+         case 12: // Christmas week / new Years Eve -> Dec 15 to Dec 31; increase the closer you get do dec 25 for christmas week
+            switch(date.getDayOfMonth())
+            {
+                case 15:case 16:case 17:
+                    dayVariance += ThreadLocalRandom.current().nextInt(5, 10+1);
+                    break;
+                case 18:case 19:case 20:case 21:case 22:
+                    dayVariance += ThreadLocalRandom.current().nextInt(20, 35+1);
+                    break;
+                case 23:
+                case 24:
+                    dayVariance += ThreadLocalRandom.current().nextInt(40, 60+1);
+                    break;
+                case 25:case 26:case 27:
+                    dayVariance += ThreadLocalRandom.current().nextInt(10, 20+1);
+                    break;
+                case 28:case 29:case 30:
+                    dayVariance += ThreadLocalRandom.current().nextInt(7, 14+1);
+                    break;
+                case 31:
+                    dayVariance += ThreadLocalRandom.current().nextInt(15, 23+1);
+                    break;
+                default:
+                    dayVariance += 0;
+                    break;
+
+            }
+            break;
+         case 2:// valentines day -> feb 13/14
+             switch(date.getDayOfMonth())
+             {
+                 case 13:
+                     dayVariance += ThreadLocalRandom.current().nextInt(15, 20+1);
+                     break;
+                 case 14:
+                     dayVariance += ThreadLocalRandom.current().nextInt(5, 10+1);
+                     break;
+                 default:
+                     dayVariance += 0;
+                     break;
+             }
+             break;
+         case 11: // black friday/thanksgiving week Nov 20ish to Nov 27ish
+             switch(date.getDayOfMonth())
+             {
+                 case 20:case 21:case 22:case 23:
+                     dayVariance += ThreadLocalRandom.current().nextInt(10, 15+1);
+                     break;
+                 case 24:
+                     dayVariance += ThreadLocalRandom.current().nextInt(5, 10+1);
+                     break;
+                 case 25:case 26:case 27:
+                     dayVariance += ThreadLocalRandom.current().nextInt(35, 55+1);
+                     break;
+                 default:
+                     dayVariance += 0;
+                     break;
+             }
+            break;
+         case 7: // independence day -> july 3/4
+             switch(date.getDayOfMonth())
+             {
+                 case 3:
+                     dayVariance += ThreadLocalRandom.current().nextInt(15, 20+1);
+                     break;
+                 case 4:
+                 dayVariance += ThreadLocalRandom.current().nextInt(10, 15+1);
+                     break;
+                 default:
+                     dayVariance += 0;
+                     break;
+             }
+            break;
+         default:
+             dayVariance += 0;
+             break;
+         }
+
+        return dayVariance;
     }
 
     public PurchaseGenerator(final DateTime start, final DateTime end, final EmployeeSelector empSel, final ItemSelector itemSel, final PriceCalculator priceCalc)

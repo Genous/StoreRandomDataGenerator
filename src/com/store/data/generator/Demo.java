@@ -53,13 +53,50 @@ public class Demo
 {
     public static void main(String args[]) throws Exception
     {
-//        testEmployeeGenerator();
-//        testItemsGenerator();
-       testPurchaseGenerator();
-//        writeToEmployeeList();
+ //       testEmployeeGenerator();
+  //      testItemsGenerator();
+//       testPurchaseGenerator();
+ //       writeToEmployeeList();
 //       writeToItemList();
 //        resetStocks();
+        testPurchaseTrends();
     }
+
+          private static void testPurchaseTrends() throws IOException
+     {
+     List<Employee> employeeList = new ArrayList<>();
+     readEmpFile(employeeList);
+
+     List<Item> itemList = new ArrayList<Item>();
+     readItemFile(itemList);
+
+     int startYear, startMonth, startDay, endYear, endMonth, endDay;
+     Scanner scan = new Scanner(System.in);
+
+     System.out.println("Enter starting date (Month Day Year)");
+     startMonth = scan.nextInt();
+     startDay = scan.nextInt();
+     startYear = scan.nextInt();
+
+     System.out.println("Enter ending date (Month Day Year) [does not generate purchases ON the end date] [keep start to end date range below ~5 months or else earliest dates will cut off on terminal]");
+
+     endMonth = scan.nextInt();
+     endDay = scan.nextInt();
+     endYear = scan.nextInt();
+
+     Random rand = new Random();
+     DateTime start = new DateTime(startYear,startMonth,startDay,0,0,0);
+     DateTime end = new DateTime(endYear, endMonth, endDay,0,0,0);
+
+     final ItemSelector itemSel = new ItemSelector(itemList, rand);
+     final EmployeeSelector empSel = new EmployeeSelector(employeeList, rand);
+
+     final PriceCalculator priceCalculator = new PriceCalculator();
+     final PurchaseGenerator purchaseGen = new PurchaseGenerator(start, end, empSel, itemSel, priceCalculator);
+     List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
+
+     System.out.println(purchaseList.size());
+     }
 
     private static void resetStocks() throws IOException
     {
