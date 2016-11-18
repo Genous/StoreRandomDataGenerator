@@ -17,8 +17,6 @@ public class ItemSelector
          * TRENDS TO CONSIDER:
          * 1) Seasonal trends -> shirts sell more in the summer months, jackets in the winter months, etc;
          * 3) Have certain departments sell more items than others (e.g. womens sells 20% more items than boys on average)
-         * 6) Have certain sizes be sold more on average than others (e.g. womens dept sees more sales of
-         * Medium size items vs. mens seeing more Large sizes being sold
          */
 
         for(int i = 0; i < initialSize; i++)
@@ -27,17 +25,153 @@ public class ItemSelector
 
             switch(curIt.getDepartment()) // department select for size variations
             {
-                case MEN: // men's dept sells mostly Large, a lot medium,, a little small/XL, and rare XXL
-
+                case MEN: // men's dept sells mostly Large, a lot medium, a little small/XL, and rare XXL
+                    switch(curIt.getItemSize())
+                    {
+                        case SMALL:
+                            for(int x = 0; x < 5; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case MEDIUM:
+                            for(int x = 0; x < 8; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case LARGE:
+                            for(int x = 0; x < 12; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case XL:
+                            for(int x = 0; x < 4; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case XXL:
+                            for(int x = 0; x < 2; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case WOMEN: // women's dept sells mostly small/medium, a little large, rare XL/XXL
-
+                    switch(curIt.getItemSize())
+                    {
+                        case SMALL:
+                            for(int x = 0; x < 15; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case MEDIUM:
+                            for(int x = 0; x < 10; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case LARGE:
+                            for(int x = 0; x < 5; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case XL:
+                            for(int x = 0; x < 2; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case XXL:
+                            for(int x = 0; x < 1; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case BOYS: // boy's sells mostly small/medium, a little large, rare XL/XXL
-
+                    switch(curIt.getItemSize())
+                    {
+                        case SMALL:
+                            for(int x = 0; x < 15; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case MEDIUM:
+                            for(int x = 0; x < 13; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case LARGE:
+                            for(int x = 0; x < 7; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case XL:
+                            for(int x = 0; x < 2; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case XXL:
+                            for(int x = 0; x < 2; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case GIRLS: // girl's sells mostly small/medium, rare large/XL/XXL
-
+                    switch(curIt.getItemSize())
+                    {
+                        case SMALL:
+                            for(int x = 0; x < 12; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case MEDIUM:
+                            for(int x = 0; x < 8; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case LARGE:
+                            for(int x = 0; x < 3; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case XL:
+                            for(int x = 0; x < 1; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case XXL:
+                            for(int x = 0; x < 1; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;

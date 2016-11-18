@@ -40,7 +40,7 @@ import java.util.*;
          * 3) Have certain departments sell more items than others (e.g. womens sells 20% more items than boys on average)
          * DONE - 4) Certain days of the week see more sales on average (e.g. friday sells more on average than on mondays) - DONE
          * DONE - 5) Increase chances of getting higher level employees to sell items more frequently than lower level employees - DONE
-         * 6) Have certain sizes be sold more on average than others (e.g. womens dept sees more sales of Medium size items vs. mens seeing more Large sizes being sold)
+         * DONE - 6) Have certain sizes be sold more on average than others (e.g. womens dept sees more sales of Medium size items vs. mens seeing more Large sizes being sold) - DONE
          * 7)
          *
          *  [Kevin] I was thinking we somehow check if an item has an attribute that satisfies these above conditions, and just repeatedly add say, X more instances of that specific item to the itemlist, so
