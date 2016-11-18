@@ -48,12 +48,12 @@ public class Demo
 {
     public static void main(String args[]) throws Exception
     {
- //       testEmployeeGenerator();
-  //      testItemsGenerator();
-          testPurchaseGenerator();
+  //      testEmployeeGenerator();
+   //     testItemsGenerator();
+                testPurchaseGenerator();
  //       writeToEmployeeList();
  //      writeToItemList();
-  //      resetStocks();
+ //       resetStocks();
 //        testPurchaseDateTrends();
  //       testEmployeeTrends();
     }
@@ -281,6 +281,9 @@ public class Demo
         List<Item> itemList = new ArrayList<Item>();
         readItemFile(itemList);
 
+        writeEmpCom(employeeList);
+        writeIteCom(itemList);
+
         int startYear, startMonth, startDay, endYear, endMonth, endDay;
         Scanner scan = new Scanner(System.in);
 
@@ -306,6 +309,41 @@ public class Demo
         final PurchaseGenerator purchaseGen = new PurchaseGenerator(start, end, empSel, itemSel, priceCalculator);
         List<Purchase> purchaseList = purchaseGen.generatePurchases(itemList, employeeList);
     }
+
+    private static void writeEmpCom(List<Employee> employeeList) throws IOException
+    {
+        File empFile = new File("EmployeeCommands.txt");
+        FileReader empRead = new FileReader(empFile.getAbsoluteFile());
+        BufferedReader bRead = new BufferedReader(empRead);
+
+        FileWriter empWrite = new FileWriter(empFile.getAbsoluteFile());
+        BufferedWriter bWrite = new BufferedWriter(empWrite);
+
+        for(Employee employee : employeeList)
+        {
+            String empString = employee.toString() + '\n';
+            bWrite.write(empString);
+        }
+        bWrite.close();
+    }
+
+    private static void writeIteCom(List<Item> itemList) throws IOException
+    {
+        File itFile = new File("ItemCommands.txt");
+        FileReader itRead = new FileReader(itFile.getAbsoluteFile());
+        BufferedReader bRead = new BufferedReader(itRead);
+
+        FileWriter itWrite = new FileWriter(itFile.getAbsoluteFile());
+        BufferedWriter bWrite = new BufferedWriter(itWrite);
+
+        for(Item items : itemList)
+        {
+            String itString = items.toString() + '\n';
+            bWrite.write(itString);
+        }
+        bWrite.close();
+    }
+
 
     private static List<Employee> readEmpFile(List<Employee> inputList) throws IOException
     {
