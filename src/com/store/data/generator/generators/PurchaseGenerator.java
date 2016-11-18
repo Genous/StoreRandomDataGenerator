@@ -31,7 +31,6 @@ public class PurchaseGenerator
         final LinkedList<Purchase> purchaseList = new LinkedList<>();
 
         int DailyPurchAmt = 0;
-
         DateTime day = start;
 
         File nextPurchID = new File("PurchID.txt");

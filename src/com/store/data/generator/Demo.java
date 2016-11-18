@@ -35,18 +35,18 @@ import java.util.*;
 
 /**
  * TRENDS TO CONSIDER:
- * 1) Seasonal trends -> shirts sell more in the summer months, jackets in the winter months, etc;
- * DONE - 2) Certain holiday days/weeks, like black friday, see increases in overall purchases, etc. - DONE
- * 3) Have certain departments sell more items than others (e.g. womens sells 20% more items than boys on average)
- * DONE - 4) Certain days of the week see more sales on average (e.g. friday sells more on average than on mondays) - DONE
- * DONE - 5) Increase chances of getting higher level employees to sell items more frequently than lower level employees - DONE
- * 6) Have certain sizes be sold more on average than others (e.g. womens dept sees more sales of Medium size items vs. mens seeing more Large sizes being sold)
- * 7)
- *
- *  [Kevin] I was thinking we somehow check if an item has an attribute that satisfies these above conditions, and just repeatedly add say, X more instances of that specific item to the itemlist, so
- *  itemselector has a higher chance of picking out those specific items randomly vs others that don't satisfy those conditions (may be better solutions though, just brainstorming)
- *  Same above for employeeselector too for higher vs lower employees, maybe each level 5 is repeated in the list 5 times, vs 4 being in it 4 times, etc.
- */
+         * 1) Seasonal trends -> shirts sell more in the summer months, jackets in the winter months, etc;
+         * DONE - 2) Certain holiday days/weeks, like black friday, see increases in overall purchases, etc. - DONE
+         * 3) Have certain departments sell more items than others (e.g. womens sells 20% more items than boys on average)
+         * DONE - 4) Certain days of the week see more sales on average (e.g. friday sells more on average than on mondays) - DONE
+         * DONE - 5) Increase chances of getting higher level employees to sell items more frequently than lower level employees - DONE
+         * 6) Have certain sizes be sold more on average than others (e.g. womens dept sees more sales of Medium size items vs. mens seeing more Large sizes being sold)
+         * 7)
+         *
+         *  [Kevin] I was thinking we somehow check if an item has an attribute that satisfies these above conditions, and just repeatedly add say, X more instances of that specific item to the itemlist, so
+         *  itemselector has a higher chance of picking out those specific items randomly vs others that don't satisfy those conditions (may be better solutions though, just brainstorming)
+         *  Same above for employeeselector too for higher vs lower employees, maybe each level 5 is repeated in the list 5 times, vs 4 being in it 4 times, etc.
+         */
 
 public class Demo
 {
@@ -56,7 +56,7 @@ public class Demo
   //      testItemsGenerator();
 //       testPurchaseGenerator();
  //       writeToEmployeeList();
-       writeToItemList();
+  //     writeToItemList();
 //        resetStocks();
 //        testPurchaseDateTrends();
  //       testEmployeeTrends();
@@ -88,7 +88,7 @@ public class Demo
         DateTime start = new DateTime(startYear,startMonth,startDay,0,0,0);
         DateTime end = new DateTime(endYear, endMonth, endDay,0,0,0);
 
-        final ItemSelector itemSel = new ItemSelector(itemList, rand);
+        final ItemSelector itemSel = new ItemSelector(itemList, rand, itemList.size());
         final EmployeeSelector empSel = new EmployeeSelector(employeeList, rand);
 
         final PriceCalculator priceCalculator = new PriceCalculator();
@@ -98,8 +98,7 @@ public class Demo
         System.out.println(purchaseList.size());
     }
 
-
-          private static void testEmployeeTrends() throws IOException
+     private static void testEmployeeTrends() throws IOException
      {
      List<Employee> employeeList = new ArrayList<>();
      readEmpFile(employeeList);
@@ -125,7 +124,7 @@ public class Demo
      DateTime start = new DateTime(startYear,startMonth,startDay,0,0,0);
      DateTime end = new DateTime(endYear, endMonth, endDay,0,0,0);
 
-     final ItemSelector itemSel = new ItemSelector(itemList, rand);
+     final ItemSelector itemSel = new ItemSelector(itemList, rand, itemList.size());
      final EmployeeSelector empSel = new EmployeeSelector(employeeList, rand);
 
      final PriceCalculator priceCalculator = new PriceCalculator();
@@ -304,7 +303,7 @@ public class Demo
         DateTime start = new DateTime(startYear,startMonth,startDay,0,0,0);
         DateTime end = new DateTime(endYear, endMonth, endDay,0,0,0);
 
-        final ItemSelector itemSel = new ItemSelector(itemList, rand);
+        final ItemSelector itemSel = new ItemSelector(itemList, rand, itemList.size());
         final EmployeeSelector empSel = new EmployeeSelector(employeeList, rand);
 
         final PriceCalculator priceCalculator = new PriceCalculator();
