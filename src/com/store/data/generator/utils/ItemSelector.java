@@ -7,6 +7,8 @@ import org.joda.time.DateTime;
 import java.io.*;
 import java.util.*;
 
+import static java.lang.Math.toIntExact;
+
 public class ItemSelector
 {
     public Item getItem(DateTime date) throws IOException
@@ -14,12 +16,26 @@ public class ItemSelector
         //todo hash items based on type, then use the date to make patterns based on type. (t-shirts sell more in the summer etc...)
 
         /**
-         * TRENDS TO CONSIDER:
-         * 1) Seasonal trends -> shirts sell more in the summer months, jackets in the winter months, etc;
-         * 3) Have certain departments sell more items than others (e.g. womens sells 20% more items than boys on average)
+         SHIRT, -> mostly in summer and spring, decent amount in fall, small in december
+         SHORTS, -> mostly in summer and spring, decent in fall, rare in december
+         JEANS, -> mostly in fall and winter, sometimes in spring, rare in summer
+         HAT, -> mostly in summer, moderately in spring, rare in fall and december
+         BELT, -> no real seasonal trends, belts aren't seasonal items
+         SOCKS, -> no real trends
+         JACKET, -> mostly in fall and winter, sometimes in spring, rare in summer
+         SHOES; -> no real trends
          */
 
-        for(int i = 0; i < initialSize; i++)
+        ArrayList<Item> itemsArray = new ArrayList<Item>();
+
+        for(Item items : itemList)
+        {
+            itemsArray.add(items);
+        }
+
+        for(int i = 0; i < initialSize; i++) // look at every unique item in itemsarray, put copy(s) of it in the array
+                                             // again to increase chances of it being selected for a purchase for
+                                             // trends to show up
         {
             Item curIt = itemsArray.get(i);
 
@@ -59,6 +75,7 @@ public class ItemSelector
                             }
                             break;
                         default:
+                            itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
                             break;
                     }
                     break;
@@ -96,6 +113,7 @@ public class ItemSelector
                             }
                             break;
                         default:
+                            itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
                             break;
                     }
                     break;
@@ -133,6 +151,7 @@ public class ItemSelector
                             }
                             break;
                         default:
+                            itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
                             break;
                     }
                     break;
@@ -170,38 +189,284 @@ public class ItemSelector
                             }
                             break;
                         default:
+                            itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
                             break;
                     }
                     break;
                 default:
+                    itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
+                    break;
+            }
+
+            switch(date.getMonthOfYear()) // get seasonal trends: Spring = 3 to 6, Summer = 7 to 9, Fall = 10 to 11, Winter = 12 to 2
+            {
+                case 3:case 4:case 5:case 6: // spring
+                    switch(curIt.getItemType())
+                    {
+                        case SHIRT:
+                            for(int x = 0; x < 10; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case SHORTS:
+                            for(int x = 0; x < 10; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case JEANS:
+                            for(int x = 0; x < 4; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case HAT:
+                            for(int x = 0; x < 7; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case BELT:
+                            for(int x = 0; x < 5; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case SOCKS:
+                            for(int x = 0; x < 5; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case JACKET:
+                            for(int x = 0; x < 3; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        case SHOES:
+                            for(int x = 0; x < 5; x++)
+                            {
+                                itemsArray.add(curIt);
+                            }
+                            break;
+                        default:
+                            itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
+                            break;
+                    }
+                    break;
+                case 7:case 8:case 9: // summer
+                switch(curIt.getItemType())
+                {
+                    case SHIRT:
+                        for(int x = 0; x < 12; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SHORTS:
+                        for(int x = 0; x < 10; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case JEANS:
+                        for(int x = 0; x < 2; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case HAT:
+                        for(int x = 0; x < 8; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case BELT:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SOCKS:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case JACKET:
+                        for(int x = 0; x < 2; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SHOES:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    default:
+                        itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
+                        break;
+                }
+                case 10:case 11: // fall
+                switch(curIt.getItemType())
+                {
+                    case SHIRT:
+                        for(int x = 0; x < 7; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SHORTS:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case JEANS:
+                        for(int x = 0; x < 9; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case HAT:
+                        for(int x = 0; x < 2; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case BELT:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SOCKS:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case JACKET:
+                        for(int x = 0; x < 7; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SHOES:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    default:
+                        itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
+                        break;
+                }
+                case 12:case 1:case 2: // winter
+                switch(curIt.getItemType())
+                {
+                    case SHIRT:
+                        for(int x = 0; x < 3; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SHORTS:
+                        for(int x = 0; x < 2; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case JEANS:
+                        for(int x = 0; x < 7; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case HAT:
+                        for(int x = 0; x < 2; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case BELT:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SOCKS:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case JACKET:
+                        for(int x = 0; x < 10; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    case SHOES:
+                        for(int x = 0; x < 5; x++)
+                        {
+                            itemsArray.add(curIt);
+                        }
+                        break;
+                    default:
+                        itemsArray.add(curIt); // just add 1 copy, shouldnt ever reach this though
+                        break;
+                }
+                default:
+                    itemsArray.add(curIt); // just add 1 copy
                     break;
             }
         }
 
         int randomNum = rand.nextInt(itemsArray.size());
 
-        itemsArray.get(randomNum).setStock(-1);
+        Item changeItem = itemList.get(0);
+        int arrayPos = 0;
 
-        if(itemsArray.get(randomNum).getStock() == 0)
+        for(Item items : itemList)
+        {
+            if(items.getId() == itemsArray.get(randomNum).getId())
+            {
+                changeItem = items;
+                changeItem.setStock(-1);
+                break;
+            }
+            else{
+                arrayPos++;
+            }
+        }
+
+        itemList.set(arrayPos, changeItem);
+
+        if(changeItem.getStock() == 0)
         {
             File resFile = new File("ResID.txt");
             Scanner fileScan = new Scanner(resFile);
 
-            itemsArray.get(randomNum).setStock(100);
+            changeItem.setStock(100);
 
-            final InventoryRestockingGenerator invStock = new InventoryRestockingGenerator(Long.parseLong(fileScan.next(), 10), itemsArray.get(randomNum).getId(), date, 100);
+            final InventoryRestockingGenerator invStock = new InventoryRestockingGenerator(Long.parseLong(fileScan.next(), 10), changeItem.getId(), date, 100);
 
             fileScan.close();
 
             invStock.generateRestocks();
         }
 
-        updateStocks(itemsArray);
+        updateStocks(itemList);
 
-        return itemsArray.get(randomNum);
+        return changeItem;
     }
 
-    private static void updateStocks(ArrayList<Item> itemsArray) throws IOException
+    private static void updateStocks(List<Item> itemsList) throws IOException
     {
         File ItFile = new File("ItemList.txt");
 
@@ -211,7 +476,7 @@ public class ItemSelector
         FileWriter ItWrite = new FileWriter(ItFile.getAbsoluteFile());
         BufferedWriter bWrite = new BufferedWriter(ItWrite);
 
-        for(Item items: itemsArray)
+        for(Item items: itemsList)
         {
             String itString = items.getId() + " " + items.getItemType() + " " + items.getItemSize() + " " + items.getCostOfStoragePerUnit() + " " + items.getDepartment() + " " + items.getStock() + " \n";
             bWrite.write(itString);
@@ -219,17 +484,14 @@ public class ItemSelector
         bWrite.close();
     }
 
-    public ItemSelector(final List<Item> itemList, Random rand, int initialSize)
+    public ItemSelector(final List<Item> itemList, Random rand, int size)
     {
-        for(Item items : itemList)
-        {
-            itemList.add(items);
-        }
         this.rand = rand;
-        this.initialSize = initialSize;
+        this.initialSize = size;
+        this.itemList = itemList;
     }
 
-    private ArrayList<Item> itemsArray = new ArrayList<>();
     private Random rand;
     private int initialSize;
+    private List<Item> itemList;
 }
