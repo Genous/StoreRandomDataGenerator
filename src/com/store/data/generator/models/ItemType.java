@@ -7,7 +7,8 @@ public enum ItemType
     JEANS,
     HAT,
     BELT,
-    SOCKS;
+    SOCKS,
+    JACKET;
 
     public double getBaseStorageCostPerMonth()
     {
@@ -25,6 +26,8 @@ public enum ItemType
                 return 0.012;
             case SOCKS:
                 return 0.01;
+            case JACKET:
+                return 0.020;
             default:
                 return 0.015;
         }
@@ -46,6 +49,8 @@ public enum ItemType
                 return 0.05;
             case SOCKS:
                 return 0.03;
+            case JACKET:
+                return 0.065;
             default:
                 return 0.008;
         }

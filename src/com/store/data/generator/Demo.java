@@ -19,7 +19,6 @@ import java.util.*;
 /**
  * Purchases:
  * 1- Make sure number of items sold doesn't exceed current inventory
- * 2-
  *
  * Tracking stolen items
  *
@@ -57,10 +56,10 @@ public class Demo
   //      testItemsGenerator();
 //       testPurchaseGenerator();
  //       writeToEmployeeList();
-//       writeToItemList();
+       writeToItemList();
 //        resetStocks();
 //        testPurchaseDateTrends();
-        testEmployeeTrends();
+ //       testEmployeeTrends();
     }
 
     private static void testPurchaseDateTrends() throws IOException
